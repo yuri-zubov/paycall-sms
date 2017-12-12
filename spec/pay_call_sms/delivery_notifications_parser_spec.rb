@@ -29,11 +29,21 @@ describe PayCallSms::DeliveryNotificationParser do
     it 'should be delivered when status is delivered' do
       http_params.update('Status' => 'delivered')
       notification.delivery_status.should == :delivered
+      notification.reason_not_delivered.should be_blank
     end
 
     it 'should be not delivered when status is failed' do
       http_params.update('Status' => 'failed')
       notification.delivery_status.should == :failed
+      notification.reason_not_delivered.should be_blank
+    end
+
+    it 'should normalize http params when status is koshe' do
+      http_params.update('Status' => 'koshe')
+      notification.delivery_status.should == :failed
+      notification.gateway_status.should == 'kosher'
+      notification.occurred_at.should be_present
+      notification.reason_not_delivered.should == 'kosher_number'
     end
 
   end
