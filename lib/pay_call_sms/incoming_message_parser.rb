@@ -24,7 +24,8 @@ module PayCallSms
         phone: params['sender'],
         reply_to_phone: params['recipient'],
         text: params['content'],
-        message_id: params['msgId']
+        message_id: params['msgId'],
+        received_at: params['receivedTime'],
       )
     end
 

@@ -61,12 +61,11 @@ module PayCallSms
     end
 
     def self.gateway_delivery_status_to_delivery_status(gateway_status)
-      {inprogress: :in_progress, delivered: :delivered, failed: :failed, kosher: :failed}.with_indifferent_access[gateway_status] || :unknown
+      {inprogress: :in_progress, pending: :in_progress, delivered: :delivered, failed: :failed, kosher: :failed}.with_indifferent_access[gateway_status] || :unknown
     end
 
     def self.normalize_http_push_params(params)
-      if params['Status'] == 'koshe'
-        params['Status'] = 'kosher'
+      if params['Status'] == 'kosher'
         params['ReasonNotDelivered'] = 'kosher_number'
         params['dateTime'] = Time.now.strftime('%d-%m-%Y %H:%M:%s') # "12-12-2017 14:22:1"
       end

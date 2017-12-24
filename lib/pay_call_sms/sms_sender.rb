@@ -74,7 +74,10 @@ module PayCallSms
         message: message_text,
         customermessageid: message_id
       }
-      result[:deliverynotificationURL] = options[:delivery_notification_url] if options[:delivery_notification_url].present?
+      if options[:delivery_notification_url].present?
+        result[:deliverynotificationURL] = options[:delivery_notification_url]
+        result[:deliverynotificationmethod] = 'POST'
+      end
       result[:from] = options[:sender_number]
       result[:from] = options[:sender_name] if options[:sender_name].present?
       result
