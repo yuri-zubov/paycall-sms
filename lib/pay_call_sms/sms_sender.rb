@@ -57,7 +57,7 @@ module PayCallSms
         end
         logger.debug "#send_sms - parsed response: #{json.inspect}"
       end
-      if json['success'] == true
+      if json['success'] == 'true'
         OpenStruct.new(
            message_id: message_id,
          )
